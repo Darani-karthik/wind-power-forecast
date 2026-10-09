@@ -84,7 +84,12 @@ def plot_forecast_example(ds, forecast_kw: np.ndarray, model: str, path, days: f
     n_steps = int(days * 24 * 3600 / ds.grid.step.total_seconds())
     window = np.arange(len(times))[:n_steps]
     mask = ds.eligible[times][window]
-    turbine = int(mask.sum(axis=0).argmax())  # the turbine with the fewest gaps in this window
+    # a representative turbine: the median output among those with few gaps (not the best- or worst-looking one)
+    counts = mask.sum(axis=0)
+    output = np.array([ds.grid.y[times[window]][mask[:, n], n].mean() if mask[:, n].any() else -1.0
+                       for n in range(mask.shape[1])])
+    few_gaps = np.flatnonzero(counts >= 0.9 * counts.max())
+    turbine = int(few_gaps[np.argsort(output[few_gaps])[len(few_gaps) // 2]])
 
     actual = np.where(mask[:, turbine], ds.grid.y[times[window], turbine], np.nan)
     pred = np.where(mask[:, turbine], np.clip(forecast_kw[window, turbine], 0, None), np.nan)
@@ -106,7 +111,7 @@ def plot_forecast_example(ds, forecast_kw: np.ndarray, model: str, path, days: f
     ax.legend(loc="upper right", frameon=False, fontsize=9, labelcolor=INK2, ncol=2, handlelength=1.6)
     turbine_id = ds.grid.turbine_ids[turbine]
     _title(fig, f"{model}: 15-minute-ahead forecast vs measurement",
-           f"Turbine {turbine_id}, first {days:g} days of the test period (gaps are missing readings)")
+           f"Turbine {turbine_id} (median output of the turbines), first {days:g} days of the test period")
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(path, dpi=160)
