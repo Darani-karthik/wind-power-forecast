@@ -15,7 +15,9 @@ def parse_args(description: str, argv=None) -> argparse.Namespace:
     parser.add_argument("--models", nargs="+", default=MODEL_NAMES, choices=MODEL_NAMES)
     parser.add_argument("--seeds", nargs="+", type=int, default=[0, 1, 2])
     parser.add_argument("--turbines", type=int, default=30, help="number of turbines, TurbID 1..N")
-    parser.add_argument("--days", type=int, default=60, help="days of data from the start of the dataset")
+    parser.add_argument("--days", type=int, default=365,
+                        help="days of data from the start of the dataset (2020 is sampled every 15 min; "
+                             "use 60 for a quick run)")
     parser.add_argument("--k", type=int, default=5, help="neighbours per turbine in the graph")
     parser.add_argument("--epochs", type=int, default=30)
     parser.add_argument("--batch-size", type=int, default=64)

@@ -82,7 +82,7 @@ def load_locations(data_dir) -> pd.DataFrame:
     return pd.read_csv(path)
 
 
-def build_grid(df: pd.DataFrame, turbine_ids: list[int], days: int = 60) -> Grid:
+def build_grid(df: pd.DataFrame, turbine_ids: list[int], days: int = 365) -> Grid:
     """Place the first `days` days of the chosen turbines on one regular time grid.
 
     The dataset is sampled every 15 minutes in 2020 but every 10 minutes in 2021, so the step is read
@@ -155,7 +155,7 @@ def make_dataset(grid: Grid) -> Dataset:
     return Dataset(grid, scaler, x, y, eligible, train, val, test)
 
 
-def prepare(data_dir, n_turbines: int = 30, days: int = 60):
+def prepare(data_dir, n_turbines: int = 30, days: int = 365):
     """Raw files -> Dataset, plus the turbine coordinates in the same order as the dataset's nodes."""
     locations = load_locations(data_dir)
     turbine_ids = [int(tid) for tid in sorted(locations["TurbID"])[:n_turbines]]

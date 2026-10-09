@@ -69,7 +69,7 @@ def plot_model_comparison(rows: list[dict], subtitle: str, path) -> None:
     ax.spines["bottom"].set_visible(False)
 
     handles = [plt.Rectangle((0, 0), 1, 1, color=BLUE), plt.Rectangle((0, 0), 1, 1, color=DIM)]
-    ax.legend(handles, ["Neural model (mean ± std over seeds)", "Reference forecast"], loc="lower right",
+    ax.legend(handles, ["Neural model (mean ± std over seeds)", "Reference forecast"], loc="upper right",
               frameon=False, fontsize=8.5, labelcolor=INK2, handlelength=1.0, handleheight=1.0)
     _title(fig, "Forecast error on the held-out test period (lower is better)", subtitle)
     path = Path(path)
@@ -98,6 +98,7 @@ def plot_forecast_example(ds, forecast_kw: np.ndarray, model: str, path, days: f
     ax.set_axisbelow(True)
     ax.set_ylabel("Active power (kW)", fontsize=9)
     ax.set_ylim(0, None)
+    ax.xaxis.set_major_locator(mdates.DayLocator())
     ax.xaxis.set_major_formatter(mdates.DateFormatter("%d %b"))
     _clean(ax)
     ax.spines["left"].set_visible(False)
@@ -123,8 +124,8 @@ def plot_turbine_graph(locations, turbine_ids: list[int], edge_index: np.ndarray
     senders = edge_index[0][edge_index[1] == focal]
 
     fig, ax = plt.subplots(figsize=(5.6, 7.6))
-    _margins(fig, left=0.13, right=0.97, bottom_in=0.6)
-    ax.scatter(others[:, 0], others[:, 1], s=14, color=GRID, zorder=1, label="Turbines not used")
+    _margins(fig, left=0.13, right=0.97, bottom_in=1.2)
+    ax.scatter(others[:, 0], others[:, 1], s=14, color="#d3d2ca", zorder=1, label="Turbines not used")
     for src, dst in edge_index.T:
         ax.plot(*coords[[src, dst]].T, color=AXIS, lw=0.8, zorder=2)
     for src in senders:
@@ -140,7 +141,8 @@ def plot_turbine_graph(locations, turbine_ids: list[int], edge_index: np.ndarray
     ax.set_xlabel("x (m)", fontsize=9)
     ax.set_ylabel("y (m)", fontsize=9)
     _clean(ax)
-    ax.legend(loc="upper right", frameon=False, fontsize=8.5, labelcolor=INK2, markerscale=0.9)
+    ax.legend(loc="upper center", bbox_to_anchor=(0.5, -0.09), ncol=2, frameon=False, fontsize=8.5,
+              labelcolor=INK2, markerscale=0.9)
     _title(fig, "Each turbine listens to its nearest neighbours",
            f"{len(turbine_ids)} modelled turbines of the wind farm, edges point to the receiving turbine")
     path = Path(path)
