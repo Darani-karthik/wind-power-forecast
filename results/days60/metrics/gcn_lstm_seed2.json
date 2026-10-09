@@ -1,0 +1,15 @@
+{
+  "model": "GCN-LSTM",
+  "seed": 2,
+  "parameters": 8673,
+  "best_epoch": 1,
+  "epochs_run": 6,
+  "val_mse_standardised": 2.4054682072120084,
+  "train_seconds": 9.3,
+  "RMSE": 324.0985428285413,
+  "MAE": 199.5979775659586,
+  "R2": 0.5388128739503968,
+  "RAE": 0.4986973056618618,
+  "MAPE": 41.797475089068556,
+  "kind": "model"
+}

@@ -1,0 +1,15 @@
+{
+  "model": "GAT-LSTM",
+  "seed": 0,
+  "parameters": 13089,
+  "best_epoch": 1,
+  "epochs_run": 6,
+  "val_mse_standardised": 2.3200425591373928,
+  "train_seconds": 18.9,
+  "RMSE": 305.3881533754692,
+  "MAE": 184.55422754190488,
+  "R2": 0.5905250010364109,
+  "RAE": 0.4611103636720966,
+  "MAPE": 39.6314775562837,
+  "kind": "model"
+}

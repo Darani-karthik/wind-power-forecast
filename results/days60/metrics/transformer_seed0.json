@@ -1,0 +1,15 @@
+{
+  "model": "Transformer",
+  "seed": 0,
+  "parameters": 124318,
+  "best_epoch": 8,
+  "epochs_run": 13,
+  "val_mse_standardised": 1.7396611744974781,
+  "train_seconds": 3.7,
+  "RMSE": 284.3305097234452,
+  "MAE": 161.34174286862103,
+  "R2": 0.6450477398099796,
+  "RAE": 0.40311376618423606,
+  "MAPE": 33.74139253111055,
+  "kind": "model"
+}

@@ -1,0 +1,15 @@
+{
+  "model": "GAT-Transformer",
+  "seed": 1,
+  "parameters": 351390,
+  "best_epoch": 4,
+  "epochs_run": 9,
+  "val_mse_standardised": 1.7133379442769574,
+  "train_seconds": 28.0,
+  "RMSE": 236.6280530532131,
+  "MAE": 130.70952735484872,
+  "R2": 0.7541583401136118,
+  "RAE": 0.32657890581410226,
+  "MAPE": 28.217735750096573,
+  "kind": "model"
+}
