@@ -44,8 +44,19 @@ def _cell(row: dict, metric: str) -> str:
     return f"{text} ± {std:.{digits}f}" if std is not None else text
 
 
+def fewer_seeds_note(rows: list[dict]) -> str:
+    """'1 seed for A, B' when some neural models were run with fewer seeds than the others, else ''."""
+    most = max((r["seeds"] for r in rows if r["kind"] == "model"), default=0)
+    groups = {}
+    for r in rows:
+        if r["kind"] == "model" and r["seeds"] < most:
+            groups.setdefault(r["seeds"], []).append(r["model"])
+    return "; ".join(f"{n} seed{'s' if n > 1 else ''} for {', '.join(names)}" for n, names in sorted(groups.items()))
+
+
 def write_summary(rows: list[dict], data: dict, path) -> None:
     test = data["splits"]["test"]
+    note = fewer_seeds_note(rows)
     lines = [
         "# Results summary",
         "",
@@ -60,6 +71,8 @@ def write_summary(rows: list[dict], data: dict, path) -> None:
         params = f"{row['parameters']:,}" if row["parameters"] else "n/a"
         cells = " | ".join(_cell(row, m) for m in METRICS)
         lines.append(f"| {row['model']} | {cells} | {params} |")
+    if note:
+        lines += ["", f"Run with fewer seeds to save time: {note}. Their rows have no ± spread and are indicative only."]
     lines += [
         "",
         "RAE is the summed absolute error relative to always predicting the test-period mean (1.0 = no better). "
@@ -78,8 +91,10 @@ def build(results_dir) -> list[dict]:
 
     test = data["splits"]["test"]
     seeds = max(r["seeds"] for r in rows)
+    note = fewer_seeds_note(rows)
     subtitle = (f"{data['turbines']} turbines, {test['from'][:10]} to {test['to'][:10]}, "
-                f"{data['step_minutes']}-minute-ahead forecast, {seeds} seeds")
+                f"{data['step_minutes']}-minute-ahead forecast, {seeds} seeds"
+                + (f"\n{note} (no error bars)" if note else ""))
     plot_model_comparison(
         [{"model": r["model"], "kind": r["kind"], "RMSE": r["RMSE"], "RMSE_std": r["RMSE_std"]} for r in rows],
         subtitle, results_dir / "figures" / "model_comparison.png")
