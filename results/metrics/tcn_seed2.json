@@ -1,0 +1,15 @@
+{
+  "model": "TCN",
+  "seed": 2,
+  "parameters": 6753,
+  "best_epoch": 4,
+  "epochs_run": 9,
+  "val_mse_standardised": 0.2859413593126666,
+  "train_seconds": 24.7,
+  "RMSE": 185.3185927986923,
+  "MAE": 101.58822442099101,
+  "R2": 0.836715971025723,
+  "RAE": 0.2721001634340404,
+  "MAPE": 30.664008676874232,
+  "kind": "model"
+}

@@ -1,0 +1,15 @@
+{
+  "model": "LSTM",
+  "seed": 0,
+  "parameters": 18241,
+  "best_epoch": 7,
+  "epochs_run": 12,
+  "val_mse_standardised": 0.2946267376108103,
+  "train_seconds": 66.8,
+  "RMSE": 203.33965993352442,
+  "MAE": 106.13199174449491,
+  "R2": 0.8034152130478784,
+  "RAE": 0.2842704699668928,
+  "MAPE": 26.855777376206035,
+  "kind": "model"
+}

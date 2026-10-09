@@ -1,0 +1,15 @@
+{
+  "model": "GAT",
+  "seed": 0,
+  "parameters": 5601,
+  "best_epoch": 18,
+  "epochs_run": 23,
+  "val_mse_standardised": 0.23118091510746439,
+  "train_seconds": 951.4,
+  "RMSE": 176.75565530751444,
+  "MAE": 100.75106335163066,
+  "R2": 0.8514569433754843,
+  "RAE": 0.2698578596129836,
+  "MAPE": 25.706752603767423,
+  "kind": "model"
+}

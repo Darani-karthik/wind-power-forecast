@@ -1,0 +1,15 @@
+{
+  "model": "GCN",
+  "seed": 1,
+  "parameters": 1633,
+  "best_epoch": 16,
+  "epochs_run": 21,
+  "val_mse_standardised": 0.29582050263272364,
+  "train_seconds": 267.1,
+  "RMSE": 230.757367409577,
+  "MAE": 128.79428996379013,
+  "R2": 0.7468273008805704,
+  "RAE": 0.3449705666996302,
+  "MAPE": 34.434742611053586,
+  "kind": "model"
+}
